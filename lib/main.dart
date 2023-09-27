@@ -3,6 +3,7 @@ import 'package:ui_one/features/auth/presentation/pages/app_widget.dart';
 import 'package:ui_one/features/auth/presentation/pages/sign_in_page.dart';
 
 import 'package:ui_one/service._locator.dart';
+import 'services/auth_service.dart';
 
 void main() {
   setupLocator();

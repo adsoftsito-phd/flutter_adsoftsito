@@ -7,6 +7,8 @@ import 'package:ui_one/features/auth/presentation/validator/auth_validator.dart'
 import 'package:ui_one/service._locator.dart';
 
 import '../components/buttons.dart';
+import '../../../../services/auth_service.dart';
+import 'package:provider/provider.dart';
 
 class SignInPage extends StatefulWidget {
   static const String id = "sign_in_page";
@@ -15,6 +17,7 @@ class SignInPage extends StatefulWidget {
 
   @override
   State<SignInPage> createState() => _SignInPageState();
+
 }
 
 class _SignInPageState extends State<SignInPage> {
@@ -25,6 +28,8 @@ class _SignInPageState extends State<SignInPage> {
 
   @override
   Widget build(BuildContext context) {
+    //var authService = Provider.of<AuthService>(context);
+
     return Scaffold(
       resizeToAvoidBottomInset: false,
       body: Padding(
@@ -104,7 +109,18 @@ class _SignInPageState extends State<SignInPage> {
             const SizedBox(height: 100),
             Column(
               children: [
-                MyButtonTwo(text: "Log in", onPressed: signIn),
+                MyButtonTwo(text: "Log in", onPressed: () async {
+
+                  final AuthService authService = AuthService();
+              
+                   final username = "admin";
+                  final password = "admin";
+                  final loginOk = await authService.login(username, password);
+                  print(loginOk);
+
+
+
+                }),
                 const SizedBox(height: 30),
                 const Text(
                   "Forgot Password",
@@ -123,6 +139,39 @@ class _SignInPageState extends State<SignInPage> {
   }
 
   void signIn() {
+/*
+                  final username = "admin";
+                  final password = "admin";
+
+                  if (username.isEmpty || password.isEmpty) {
+                    mostrarAlerta(context, 'Campos vacíos',
+                        'Por favor, complete todos los campos');
+                    return;
+                  }
+
+                  authService.autenticando = true;
+
+                  final loginOk = await authService.login(username, password);
+
+                  authService.autenticando = false;
+
+                  if (loginOk != null) {
+                    // ignore: use_build_context_synchronously
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => const HomePage()),
+                    );
+                  } else {
+                    // ignore: use_build_context_synchronously
+                    mostrarAlerta(
+                        context, 'Login erroneo', 'Verifique sus datos');
+                  }
+                },
+                enabled: !authService.autenticando,
+                loading: authService
+                    .autenticando, 
+*/
+    /*
     if (_signInGlobalKey.currentState!.validate()) {
       final message = authController.login(
         emailController.text.trim(),
@@ -148,6 +197,7 @@ class _SignInPageState extends State<SignInPage> {
         Navigator.pushNamed(context, MyApp.id);
       }
     }
+    */
   }
 
   @override
